@@ -31,7 +31,7 @@ jobs:
                   name: vsix
                   path: ${{ github.workspace }}/*.vsix
                   if-no-files-found: error
-            - uses: marvinpinto/action-automatic-releases@v1.1.1
+            - uses: marvinpinto/action-automatic-releases@v1.1.2
               if: github.event_name == 'push' && github.ref == 'refs/heads/main'
               with:
                   repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -41,7 +41,7 @@ jobs:
                   files: |
                       LICENSE
                       *.vsix
-            - uses: marvinpinto/action-automatic-releases@v1.1.1
+            - uses: marvinpinto/action-automatic-releases@v1.1.2
               if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
               with:
                   repo_token: "${{ secrets.GITHUB_TOKEN }}"
