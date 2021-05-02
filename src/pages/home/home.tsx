@@ -22,7 +22,7 @@ import {
     filter,
     loadSessions
 } from "./sessionsActions";
-import { getDisplaySessions, getLegacySessions } from "./sessionsSelectors";
+import { getDisplaySessions } from "./sessionsSelectors";
 
 interface IHomePageParams {
     ids?: string;
@@ -30,7 +30,6 @@ interface IHomePageParams {
 
 interface IHomePageProps extends IPageProps<IHomePageParams> {
     sessions: ISessionDisplay[];
-    legacySessions: ISessionDisplay[];
     error: string | null;
 }
 
@@ -65,7 +64,6 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
             history,
             match,
             sessions,
-            legacySessions,
             deleteSession
         } = this.props;
 
@@ -118,20 +116,6 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
                                 history={history}
                                 sessions={sessions}
                                 onEndSession={deleteSession}
-                            />
-                        </Card>
-                    )}
-
-                    {false && legacySessions && legacySessions.length > 0 && (
-                        <Card
-                            titleProps={{ text: "Migrated Sessions" }}
-                            className="flex-grow legacy-sessions"
-                        >
-                            <SessionList
-                                history={history}
-                                sessions={legacySessions}
-                                onEndSession={deleteSession}
-                                hideContextMenu={true}
                             />
                         </Card>
                     )}
@@ -207,7 +191,6 @@ export default connect(
                 state.sessions.filteredSessions) ||
                 state.sessions.sessions
         ),
-        legacySessions: getLegacySessions(state.sessions),
         error: state.sessions.error
     }),
     Actions

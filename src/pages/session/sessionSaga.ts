@@ -66,14 +66,6 @@ export function* sessionSaga(action: ReturnType<typeof loadSession>) {
         );
 
         if (!session) {
-            // Check if it's a legacy session
-            session = yield call(
-                [sessionService, sessionService.getLegacySessions],
-                action.payload
-            );
-        }
-
-        if (!session) {
             throw new Error("Could not load session");
         }
 

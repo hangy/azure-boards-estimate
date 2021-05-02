@@ -137,7 +137,7 @@ class Session extends React.Component<
                                         leaveSession();
                                     }
                                 },
-                                (!session.isLegacy && {
+                                {
                                     id: "action-end",
                                     important: false,
                                     text: "End session",
@@ -145,8 +145,7 @@ class Session extends React.Component<
                                     onActivate: () => {
                                         this.props.endSession();
                                     }
-                                }) ||
-                                    undefined
+                                }
                             ].filter((x) => !!x) as IHeaderCommandBarItem[]
                         }
                     />

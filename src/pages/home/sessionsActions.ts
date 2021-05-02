@@ -12,7 +12,6 @@ export const deleteSession = factory<string>("delete");
 
 export const populate = factory<{
     sessions: ISession[];
-    legacySessions: ISession[];
 }>("populate");
 
 export const setIterationLookup = factory<ILookup<IIteration>>(

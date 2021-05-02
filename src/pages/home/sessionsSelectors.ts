@@ -68,7 +68,3 @@ export function getDisplaySessions(
 export function getSessions(state: ISessionsState): ISessionDisplay[] {
     return getDisplaySessions(state, state.sessions);
 }
-
-export function getLegacySessions(state: ISessionsState): ISessionDisplay[] {
-    return getDisplaySessions(state, state.legacySessions);
-}

@@ -3,24 +3,14 @@ import {
     IExtensionDataManager,
     IProjectPageService
 } from "azure-devops-extension-api";
-import { defaultCardSets } from "../model/cards";
-import {
-    ILegacySession,
-    ISession,
-    SessionMode,
-    SessionSource
-} from "../model/session";
+import { ISession } from "../model/session";
 import { IService } from "./services";
 import { getStorageManager } from "./storage";
 
 export interface ISessionService extends IService {
     getSessions(): Promise<ISession[]>;
 
-    getLegacySessions(): Promise<ISession[]>;
-
     getSession(id: string): Promise<ISession | null>;
-
-    getLegacySession(id: string): Promise<ISession | null>;
 
     saveSession(session: ISession): Promise<ISession>;
 
@@ -66,43 +56,13 @@ export class SessionService implements ISessionService {
         const manager = await this.getManager();
 
         try {
-            // Try legacy and current collection
-            const sessions: ISession[][] = await Promise.all(
-                [
-                    manager.getDocuments("sessions", {
-                        defaultValue: []
-                    }),
-                    manager.getDocuments(await this._getCollection(), {
-                        defaultValue: []
-                    })
-                ].map((p) => p.catch(() => []))
+            const sessions: ISession[][] = await manager.getDocuments(
+                await this._getCollection(),
+                {
+                    defaultValue: []
+                }
             );
-
             return sessions.flat();
-        } catch {
-            return [];
-        }
-    }
-
-    async getLegacySessions(): Promise<ISession[]> {
-        const manager = await this.getManager();
-
-        try {
-            const legacySession: ILegacySession[] = await manager.getDocuments(
-                "EstimationSessions"
-            );
-
-            return legacySession.map<ISession>((ls) => ({
-                id: ls.id,
-                name: `Migrated: '${ls.name}'`,
-                mode: SessionMode.Online,
-                source: SessionSource.Ids,
-                sourceData: ls.workItemIds,
-                version: 1,
-                createdAt: ls.createdAt,
-                createdBy: ls.creatorId,
-                cardSet: defaultCardSets[0].id // Always use the first card set for migrated sessions
-            }));
         } catch {
             return [];
         }
@@ -126,35 +86,6 @@ export class SessionService implements ISessionService {
         }
     }
 
-    async getLegacySession(id: string): Promise<ISession | null> {
-        const manager = await this.getManager();
-
-        try {
-            const legacySession: ILegacySession = await manager.getDocument(
-                "EstimationSessions",
-                id,
-                {
-                    defaultValue: null
-                }
-            );
-
-            return {
-                id: legacySession.id,
-                name: `Migrated: '${legacySession.name}'`,
-                mode: SessionMode.Online,
-                source: SessionSource.Ids,
-                sourceData: legacySession.workItemIds,
-                version: 1,
-                createdAt: legacySession.createdAt,
-                createdBy: legacySession.creatorId,
-                cardSet: defaultCardSets[0].id, // Always use the first card set for migrated sessions
-                isLegacy: true
-            };
-        } catch {
-            return null;
-        }
-    }
-
     async saveSession(session: ISession): Promise<ISession> {
         const manager = await this.getManager();
         await manager.setDocument(await this._getCollection(), session);
@@ -163,17 +94,7 @@ export class SessionService implements ISessionService {
 
     async removeSession(id: string): Promise<void> {
         const manager = await this.getManager();
-
-        try {
-            await manager.deleteDocument(await this._getCollection(), id);
-        } catch {
-            try {
-                // Try again with legacy collection
-                await manager.deleteDocument("sessions", id);
-            } catch {
-                // Ignore
-            }
-        }
+        await manager.deleteDocument(await this._getCollection(), id);
     }
 
     private async getManager(): Promise<IExtensionDataManager> {

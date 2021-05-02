@@ -8,7 +8,6 @@ import * as Actions from "./sessionsActions";
 
 export const initialState = {
     sessions: [] as ISession[],
-    legacySessions: [] as ISession[],
     filteredSessions: null as ISession[] | null,
 
     teamLookup: null as null | ILookup<ITeam>,
@@ -23,10 +22,9 @@ export type ISessionsState = typeof initialState;
 
 const populate = reducerAction(
     Actions.populate,
-    (state: ISessionsState, { sessions, legacySessions }) => {
+    (state: ISessionsState, { sessions }) => {
         state.loading = false;
         state.sessions = sessions;
-        state.legacySessions = legacySessions;
     }
 );
 
