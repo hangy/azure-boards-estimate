@@ -11,6 +11,7 @@ import { Observer } from "azure-devops-ui/Observer";
 import { ObservableValue } from "azure-devops-ui/Core/Observable";
 
 const CardTitle: React.StatelessComponent = (props) => (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
     <h2 className="session-card--title flex-grow" {...props} />
 );
 
