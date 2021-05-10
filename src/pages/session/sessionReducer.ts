@@ -206,12 +206,8 @@ const reduce = <TPayload>(
                 // Only react to snapshot if we don't have a current work item. Otherwise assume that we're
                 // already up-to-date.
                 if (!state.selectedWorkItem) {
-                    const {
-                        currentWorkItemId,
-                        revealed,
-                        estimates,
-                        userInfo
-                    } = snapshot;
+                    const { currentWorkItemId, revealed, estimates, userInfo } =
+                        snapshot;
                     if (currentWorkItemId) {
                         const workItem = state.workItems.find(
                             (x) => x.id === currentWorkItemId

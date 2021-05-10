@@ -27,9 +27,8 @@ function* initSaga(): SagaIterator {
     ]);
 
     // Get work item type configuration for project
-    const workItemService = Services.getService<IWorkItemService>(
-        WorkItemServiceId
-    );
+    const workItemService =
+        Services.getService<IWorkItemService>(WorkItemServiceId);
     const workItemTypes: any = yield call(
         [workItemService, workItemService.getWorkItemTypes],
         projectInfo.id

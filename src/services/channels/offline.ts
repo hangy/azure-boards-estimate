@@ -51,9 +51,8 @@ export class OfflineChannel implements IChannel {
     private estimationService: IOfflineEstimationService;
 
     constructor() {
-        this.estimationService = Services.getService<IOfflineEstimationService>(
-            EstimationServiceId
-        );
+        this.estimationService =
+            Services.getService<IOfflineEstimationService>(EstimationServiceId);
     }
 
     async start(sessionId: string): Promise<void> {

@@ -48,9 +48,10 @@ export class WorkItemHeader extends React.Component<IWorkItemHeaderProps> {
                             ) {
                                 ev.preventDefault();
 
-                                const service = await DevOps.getService<IWorkItemFormNavigationService>(
-                                    "ms.vss-work-web.work-item-form-navigation-service"
-                                );
+                                const service =
+                                    await DevOps.getService<IWorkItemFormNavigationService>(
+                                        "ms.vss-work-web.work-item-form-navigation-service"
+                                    );
                                 service.openWorkItem(id);
                             }
                         }}

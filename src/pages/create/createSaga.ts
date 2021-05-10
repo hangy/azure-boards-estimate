@@ -46,9 +46,8 @@ export function* loadTeams() {
 
 /**  */
 export function* loadCardSets() {
-    const cardSetService = Services.getService<ICardSetService>(
-        CardSetServiceId
-    );
+    const cardSetService =
+        Services.getService<ICardSetService>(CardSetServiceId);
     const cardSets = yield call([cardSetService, cardSetService.getSets]);
     yield put(Actions.setCardSets(cardSets));
 }
@@ -80,16 +79,14 @@ export function* createSessionSaga() {
         };
 
         // Set creator's identity
-        const identityService = Services.getService<IIdentityService>(
-            IdentityServiceId
-        );
+        const identityService =
+            Services.getService<IIdentityService>(IdentityServiceId);
         const identity = identityService.getCurrentIdentity();
         session.createdBy = identity.id;
 
         // Save session
-        const sessionService = Services.getService<ISessionService>(
-            SessionServiceId
-        );
+        const sessionService =
+            Services.getService<ISessionService>(SessionServiceId);
         yield call([sessionService, sessionService.saveSession], session);
 
         // Reset creation state

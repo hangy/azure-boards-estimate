@@ -89,7 +89,8 @@ export class SessionCard extends React.Component<ICardProps> {
                                                     id: "session-end",
                                                     text: "End session",
                                                     onActivate: () => {
-                                                        this.isEndSessionDialogOpen.value = true;
+                                                        this.isEndSessionDialogOpen.value =
+                                                            true;
                                                         onEndSession(id);
                                                     }
                                                 }
@@ -117,7 +118,8 @@ export class SessionCard extends React.Component<ICardProps> {
                                                     },
                                                     {
                                                         text: "End Session",
-                                                        onClick: onDismissAndEndSession
+                                                        onClick:
+                                                            onDismissAndEndSession
                                                     }
                                                 ]}
                                                 onDismiss={onDismiss}

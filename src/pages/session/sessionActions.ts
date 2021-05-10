@@ -9,13 +9,14 @@ import { ISnapshot } from "../../model/snapshots";
 const factory = actionCreatorFactory("session");
 
 export const loadSession = factory<string>("load");
-export const loadedSession = factory<{
-    session: ISession;
-    cardSet: ICardSet;
-    workItems: IWorkItem[];
-    estimates: ISessionEstimates;
-    userInfo: IUserInfo;
-}>("loaded");
+export const loadedSession =
+    factory<{
+        session: ISession;
+        cardSet: ICardSet;
+        workItems: IWorkItem[];
+        estimates: ISessionEstimates;
+        userInfo: IUserInfo;
+    }>("loaded");
 
 export const updateStatus = factory<string>("updateStatus");
 
@@ -35,12 +36,13 @@ export const reveal = factory<void>("reveal");
 export const revealed = factory<void>("revealed");
 
 export const commitEstimate = factory<number | string | null>("commitCard");
-export const estimateUpdated = factory<{
-    workItemId: number;
-    value: number | string | undefined;
-    /** When set, this message was received remotely */
-    remote?: boolean;
-}>("estimateUpdated");
+export const estimateUpdated =
+    factory<{
+        workItemId: number;
+        value: number | string | undefined;
+        /** When set, this message was received remotely */
+        remote?: boolean;
+    }>("estimateUpdated");
 
 export const estimateSet = factory<IEstimate>("estimateSet");
 

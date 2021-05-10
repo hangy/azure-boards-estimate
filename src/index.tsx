@@ -40,15 +40,17 @@ DevOps.register("estimate-context-menu", () => {
                 workItemIds = actionContext.workItemIds || [];
             }
 
-            const projectPageService = await DevOps.getService<IProjectPageService>(
-                "ms.vss-tfs-web.tfs-page-data-service"
-            );
+            const projectPageService =
+                await DevOps.getService<IProjectPageService>(
+                    "ms.vss-tfs-web.tfs-page-data-service"
+                );
             const projectInfo = await projectPageService.getProject();
 
             if (workItemIds && projectInfo) {
-                const locationService = await DevOps.getService<ILocationService>(
-                    "ms.vss-features.location-service"
-                );
+                const locationService =
+                    await DevOps.getService<ILocationService>(
+                        "ms.vss-features.location-service"
+                    );
                 const url = await locationService.routeUrl(
                     "ms.vss-web.fallback-route-new-platform",
                     {

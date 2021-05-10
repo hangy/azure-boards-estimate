@@ -18,10 +18,9 @@ export function getDisplaySessions(
         switch (session.source) {
             case SessionSource.Sprint: {
                 if (session.sourceData) {
-                    const [
-                        teamId,
-                        iterationId
-                    ] = (session.sourceData as string).split(";");
+                    const [teamId, iterationId] = (
+                        session.sourceData as string
+                    ).split(";");
 
                     // Team
                     const team = getLookupValue(state.teamLookup || {}, teamId);

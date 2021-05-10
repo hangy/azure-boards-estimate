@@ -67,9 +67,8 @@ export class WorkItemService implements IWorkItemService {
         const workItemTypes = await client.getWorkItemTypes(projectId);
 
         // Merge with config
-        const sessionService = Services.getService<ISessionService>(
-            SessionServiceId
-        );
+        const sessionService =
+            Services.getService<ISessionService>(SessionServiceId);
         const configuration = await sessionService.getSettingsValue<{
             [name: string]: IWorkItemType;
         }>(projectId, FieldConfiguration);
@@ -166,9 +165,8 @@ export class WorkItemService implements IWorkItemService {
                     const project = await coreClient.getProject(projectName);
 
                     // Get work item types and their configuration
-                    const currentProjectWorkItemTypes = await this.getWorkItemTypes(
-                        project.id
-                    );
+                    const currentProjectWorkItemTypes =
+                        await this.getWorkItemTypes(project.id);
 
                     const witEstimationFieldRefNameMapping: {
                         [workItemTypeName: string]: string | undefined;
@@ -186,9 +184,10 @@ export class WorkItemService implements IWorkItemService {
                     if (properties.length > 0) {
                         const processTypeId = properties[0].value;
 
-                        const workItemTypes = await processClient.getProcessWorkItemTypes(
-                            processTypeId
-                        );
+                        const workItemTypes =
+                            await processClient.getProcessWorkItemTypes(
+                                processTypeId
+                            );
 
                         // Map of friendly work item name (e.g. Bug) to reference name inherited customization
                         const witNameToRefNameMapping: {
@@ -202,18 +201,20 @@ export class WorkItemService implements IWorkItemService {
                         await Promise.all(
                             Array.from(projectInfo.workItemTypes.keys()).map(
                                 async (workItemTypeName) => {
-                                    const workItemType = await processClient.getProcessWorkItemType(
-                                        processTypeId,
-                                        witNameToRefNameMapping[
-                                            workItemTypeName
-                                        ],
-                                        4 /* GetWorkItemTypeExpand.Layout */
-                                    );
+                                    const workItemType =
+                                        await processClient.getProcessWorkItemType(
+                                            processTypeId,
+                                            witNameToRefNameMapping[
+                                                workItemTypeName
+                                            ],
+                                            4 /* GetWorkItemTypeExpand.Layout */
+                                        );
 
                                     // Look for the first page and get the first HTML control
-                                    const descriptionFieldRefName = this._getDescription(
-                                        workItemType.layout.pages
-                                    );
+                                    const descriptionFieldRefName =
+                                        this._getDescription(
+                                            workItemType.layout.pages
+                                        );
                                     projectInfo.workItemTypes.set(
                                         workItemTypeName,
                                         {
@@ -260,14 +261,13 @@ export class WorkItemService implements IWorkItemService {
         }
 
         // Get work item data
-        const workItemsFieldData = await workItemTrackingClient.getWorkItemsBatch(
-            {
+        const workItemsFieldData =
+            await workItemTrackingClient.getWorkItemsBatch({
                 ids: workItemIds,
                 fields: Array.from(fields.values()),
                 $expand: 0 /* WorkItemExpand.None */,
                 errorPolicy: 2 /* WorkItemErrorPolicy.Omit */
-            } as WorkItemBatchGetRequest
-        );
+            } as WorkItemBatchGetRequest);
 
         const mappedWorkItemsById: { [id: number]: IWorkItem } = {};
         mappedWorkItems.forEach((x) => (mappedWorkItemsById[x.id] = x));

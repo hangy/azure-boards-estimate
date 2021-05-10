@@ -137,11 +137,12 @@ class WorkItemView extends React.Component<IWorkItemProps & typeof Actions> {
                                                 {this.eliminateDuplicates(
                                                     estimates || []
                                                 ).map((e) => {
-                                                    const card = cardSet.cards.find(
-                                                        (x) =>
-                                                            x.identifier ===
-                                                            e.cardIdentifier
-                                                    )!;
+                                                    const card =
+                                                        cardSet.cards.find(
+                                                            (x) =>
+                                                                x.identifier ===
+                                                                e.cardIdentifier
+                                                        )!;
                                                     return this.renderCard(
                                                         card,
                                                         false,
@@ -162,11 +163,12 @@ class WorkItemView extends React.Component<IWorkItemProps & typeof Actions> {
                                                         {(
                                                             estimates || []
                                                         ).reduce((sum, e) => {
-                                                            const card = cardSet.cards.find(
-                                                                (x) =>
-                                                                    x.identifier ===
-                                                                    e.cardIdentifier
-                                                            )!;
+                                                            const card =
+                                                                cardSet.cards.find(
+                                                                    (x) =>
+                                                                        x.identifier ===
+                                                                        e.cardIdentifier
+                                                                )!;
                                                             if (
                                                                 card!.value !=
                                                                 null
@@ -230,12 +232,8 @@ class WorkItemView extends React.Component<IWorkItemProps & typeof Actions> {
     };
 
     private doEstimate = (card: ICard): void => {
-        const {
-            estimate,
-            identity,
-            selectedWorkItem,
-            selectedCardId
-        } = this.props;
+        const { estimate, identity, selectedWorkItem, selectedCardId } =
+            this.props;
 
         if (card.identifier === selectedCardId) {
             // Cancel vote

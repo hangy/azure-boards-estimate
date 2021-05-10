@@ -58,14 +58,8 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
     }
 
     render(): JSX.Element {
-        const {
-            clearError,
-            error,
-            history,
-            match,
-            sessions,
-            deleteSession
-        } = this.props;
+        const { clearError, error, history, match, sessions, deleteSession } =
+            this.props;
 
         return (
             <Page className="flex-grow">

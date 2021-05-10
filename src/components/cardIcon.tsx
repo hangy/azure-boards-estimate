@@ -42,9 +42,10 @@ export function getIconForSource(source: SessionSource): string {
     }
 }
 
-export function getIconForMode(
-    mode: SessionMode
-): { icon: string; description: string } {
+export function getIconForMode(mode: SessionMode): {
+    icon: string;
+    description: string;
+} {
     switch (mode) {
         case SessionMode.Online:
             return {
