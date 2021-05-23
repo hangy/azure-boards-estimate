@@ -1,5 +1,4 @@
 import { getService } from "azure-devops-extension-sdk";
-import { setBaseUrl } from "office-ui-fabric-react";
 import { SagaIterator } from "redux-saga";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { Services } from "../../services/services";
