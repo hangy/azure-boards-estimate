@@ -8,10 +8,16 @@ import { IState } from "../../reducer";
 import { CardSetServiceId, ICardSetService } from "../../services/cardSets";
 import { Services } from "../../services/services";
 import { ISessionService, SessionServiceId } from "../../services/sessions";
-import { ITeamService, TeamServiceId } from "../../services/teams";
+import {
+    IIteration,
+    ITeam,
+    ITeamService,
+    TeamServiceId
+} from "../../services/teams";
 import { loadSessions } from "../home/sessionsActions";
 import * as Actions from "./createActions";
 import { IIdentityService, IdentityServiceId } from "../../services/identity";
+import { ICardSet } from "../../model/cards";
 
 export function* createSaga() {
     yield all([initSaga(), iterationSaga(), createSessionSaga()]);
@@ -37,7 +43,7 @@ export function* loadTeams() {
 
     // TODO: Get source from state?
     const teamService = Services.getService<ITeamService>(TeamServiceId);
-    const teams = yield call(
+    const teams: ITeam[] = yield call(
         [teamService, teamService.getAllTeams],
         projectInfo.id
     );
@@ -48,7 +54,10 @@ export function* loadTeams() {
 export function* loadCardSets() {
     const cardSetService =
         Services.getService<ICardSetService>(CardSetServiceId);
-    const cardSets = yield call([cardSetService, cardSetService.getSets]);
+    const cardSets: ICardSet[] = yield call([
+        cardSetService,
+        cardSetService.getSets
+    ]);
     yield put(Actions.setCardSets(cardSets));
 }
 
@@ -58,7 +67,7 @@ export function* iterationSaga() {
     );
 
     const teamService = Services.getService<ITeamService>(TeamServiceId);
-    const iterations = yield call(
+    const iterations: IIteration[] = yield call(
         [teamService, teamService.getIterationsForTeam],
         action.payload
     );

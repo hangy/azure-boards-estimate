@@ -6,7 +6,7 @@ import { MessageCard, MessageCardSeverity } from "azure-devops-ui/MessageCard";
 import { Page } from "azure-devops-ui/Page";
 import { Tab, TabBar } from "azure-devops-ui/Tabs";
 import { KeywordFilterBarItem } from "azure-devops-ui/TextFilterBarItem";
-import { Filter } from "azure-devops-ui/Utilities/Filter";
+import { Filter, IFilter } from "azure-devops-ui/Utilities/Filter";
 import * as React from "react";
 import { connect } from "react-redux";
 import CreatePanel from "../../components/create/panel";
@@ -41,15 +41,15 @@ const Actions = {
 };
 
 class HomePage extends React.Component<IHomePageProps & typeof Actions> {
-    filter: Filter;
+    filter: IFilter;
     filterToggled = new ObservableValue<boolean>(false);
 
     constructor(props: IHomePageProps & typeof Actions) {
         super(props);
 
-        this.filter = new Filter();
+        this.filter = new Filter() as IFilter;
         this.filter.subscribe((state) => {
-            props.filter(state["keyword"] && state["keyword"]!.value);
+            props.filter(state.keyword && state.keyword!.value);
         });
     }
 
@@ -84,10 +84,10 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
                     ]}
                 />
                 <TabBar
-                    selectedTabId={"sessions"}
-                    onSelectedTabChanged={this.onSelectedTabChanged}
+                    selectedTabId="sessions"
+                    onSelectedTabChanged={this.handleSelectedTabChanged}
                     renderAdditionalContent={this.renderTabBarCommands}
-                    disableSticky={true}
+                    disableSticky
                 >
                     <Tab id="sessions" name="Sessions" />
                 </TabBar>
@@ -117,7 +117,7 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
 
                 {match.path.indexOf("/create") !== -1 && (
                     <CreatePanel
-                        onDismiss={this.closeCreate}
+                        onDismiss={this.handleDismissCreate}
                         workItemIds={
                             (this.props.match.params.ids &&
                                 this.props.match.params.ids
@@ -129,18 +129,18 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
                 )}
 
                 {match.path.indexOf("/settings") !== -1 && (
-                    <SettingsPanel onDismiss={this.closeSettings} />
+                    <SettingsPanel onDismiss={this.handleDismissSettings} />
                 )}
             </Page>
         );
     }
 
-    private onFilterBarDismissClicked = () => {
+    private handleFilterBarDismissClicked = () => {
         this.filter.reset();
         this.filterToggled.value = false;
     };
 
-    private onSelectedTabChanged = () => {};
+    private handleSelectedTabChanged = () => {};
 
     private renderTabBarCommands = () => {
         return (
@@ -148,7 +148,7 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
                 <FilterBar
                     className="bolt-filterbar-white depth-8"
                     filter={this.filter}
-                    onDismissClicked={this.onFilterBarDismissClicked}
+                    onDismissClicked={this.handleFilterBarDismissClicked}
                 >
                     <KeywordFilterBarItem filterItemKey="keyword" />
                 </FilterBar>
@@ -166,12 +166,12 @@ class HomePage extends React.Component<IHomePageProps & typeof Actions> {
         history.push("/settings");
     };
 
-    private closeCreate = () => {
+    private handleDismissCreate = () => {
         const { history } = this.props;
         history.push("/");
     };
 
-    private closeSettings = () => {
+    private handleDismissSettings = () => {
         const { history } = this.props;
         history.push("/");
     };

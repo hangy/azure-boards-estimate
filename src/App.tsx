@@ -33,27 +33,27 @@ initializeIcons();
 class App extends React.Component {
     public render() {
         return (
-            //@ts-ignore
+            // @ts-ignore
             <Surface background={SurfaceBackground.neutral}>
                 <Router history={history}>
                     <>
                         <Switch>
                             <Route
-                                exact={true}
+                                exact
                                 path="/create/:ids?"
                                 component={HomePage}
                             />
 
                             <Route
-                                exact={true}
+                                exact
                                 path="/settings"
                                 component={HomePage}
                             />
-                            <Route exact={true} path="/" component={HomePage} />
+                            <Route exact path="/" component={HomePage} />
                         </Switch>
 
                         <Route
-                            exact={true}
+                            exact
                             path="/session/:id/:name?"
                             component={Session}
                         />

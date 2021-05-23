@@ -29,7 +29,7 @@ export class Vote extends React.Component<IVoteProps> {
                         label: card && card.identifier
                     }}
                     flipped={revealed}
-                    disabled={true}
+                    disabled
                 />
 
                 <Tooltip text={identity.displayName}>

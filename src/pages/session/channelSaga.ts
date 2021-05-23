@@ -8,7 +8,7 @@ import {
     take,
     takeEvery
 } from "redux-saga/effects";
-import { Action } from "typescript-fsa";
+import { Action, AnyAction } from "typescript-fsa";
 import { ISession } from "../../model/session";
 import { ISnapshot } from "../../model/snapshots";
 import { IChannel } from "../../services/channels/channels";
@@ -87,7 +87,7 @@ export function* channelSenderSaga(sessionId: string, channel: IChannel) {
 export function* channelListenerSaga(channel: IChannel) {
     const subscription: Channel<{}> = yield call(subscribe, channel);
     while (true) {
-        const action = yield take(subscription);
+        const action: AnyAction = yield take(subscription);
 
         switch (action.type) {
             case userJoined.type: {

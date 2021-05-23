@@ -61,7 +61,7 @@ export class WorkItemService implements IWorkItemService {
         const processConfig = await workClient.getProcessConfiguration(
             projectId
         );
-        const effortField = processConfig.typeFields["Effort"]!;
+        const effortField = processConfig.typeFields.Effort!;
 
         const client = getClient(WorkItemTrackingRestClient);
         const workItemTypes = await client.getWorkItemTypes(projectId);

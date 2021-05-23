@@ -76,7 +76,8 @@ class WorkItemView extends React.Component<IWorkItemProps & typeof Actions> {
                                         text: "Reveal",
                                         important: true,
                                         isPrimary: true,
-                                        onActivate: this.doReveal
+                                        onActivate:
+                                            this.handleRevealActionActivate
                                     } as IHeaderCommandBarItem)
                             ].filter((x) => !!x) as IHeaderCommandBarItem[]
                         }
@@ -120,7 +121,10 @@ class WorkItemView extends React.Component<IWorkItemProps & typeof Actions> {
                                         <div className="flex-column flex-self-start">
                                             <Button
                                                 primary
-                                                onClick={this.doReveal}
+                                                onClick={
+                                                    this
+                                                        .handleRevealActionActivate
+                                                }
                                             >
                                                 Reveal
                                             </Button>
@@ -226,6 +230,10 @@ class WorkItemView extends React.Component<IWorkItemProps & typeof Actions> {
             />
         );
     };
+
+    private handleRevealActionActivate = () => this.doReveal();
+
+    private handleRevealClick = () => this.doReveal();
 
     private doReveal = () => {
         this.props.reveal();

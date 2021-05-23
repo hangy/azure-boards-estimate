@@ -6,16 +6,16 @@
     "dependencies": {
         "@aspnet/signalr": "^1.1.4",
         "@types/react": "^17.0.5",
-        "@types/react-dom": "^17.0.3",
+        "@types/react-dom": "^17.0.5",
         "@types/react-redux": "^7.1.16",
         "@types/react-router-dom": "^5.1.7",
         "@uifabric/utilities": "^7.33.5",
         "azure-devops-extension-api": "^1.158.0",
         "azure-devops-extension-sdk": "^2.0.11",
-        "azure-devops-ui": "^2.166.99",
+        "azure-devops-ui": "^2.167.2",
         "core-js": "^3.12.1",
         "immer": "^9.0.2",
-        "office-ui-fabric-react": "^7.170.0",
+        "office-ui-fabric-react": "^7.170.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-redux": "^7.2.4",
@@ -23,8 +23,8 @@
         "react-scripts": "^4.0.3",
         "redux": "^4.1.0",
         "redux-saga": "^0.16.2",
-        "sass": "^1.32.12",
-        "typescript": "^4.0.6",
+        "sass": "^1.32.13",
+        "typescript": "^4.2.4",
         "typescript-fsa": "^3.0.0"
     },
     "scripts": {
@@ -32,13 +32,16 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "lint": "prettier --check --end-of-line=auto .",
+        "lint": "healthier **/*.ts **/*.tsx **/*.js && prettier --check --end-of-line=auto .",
         "format": "prettier --write --end-of-line=auto .",
         "package-dev": "tfx extension create --manifest-globs azure-devops-extension.json --overrides-file ./configs/dev.json --root ./",
         "package-release-internal": "tfx extension create --manifest-globs azure-devops-extension.json --overrides-file ./configs/release-internal.json --root ./",
         "package-release": "tfx extension create --manifest-globs azure-devops-extension.json --overrides-file ./configs/release.json --root ./"
     },
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.23.0",
+        "@typescript-eslint/parser": "^4.23.0",
+        "healthier": "^4.0.0",
         "prettier": "2.3.0",
         "tfx-cli": "^0.9.2"
     },
@@ -46,6 +49,12 @@
         "extends": [
             "react-app",
             "react-app/jest"
+        ]
+    },
+    "healthier": {
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+            "@typescript-eslint"
         ]
     },
     "browserslist": {

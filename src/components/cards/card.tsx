@@ -125,7 +125,7 @@ export class Card extends React.Component<ICardComponentProps> {
         );
 
         return (
-            <React.Fragment>
+            <>
                 {onClick ? (
                     <button
                         className={cssClassName}
@@ -137,7 +137,7 @@ export class Card extends React.Component<ICardComponentProps> {
                 ) : (
                     <div className={cssClassName}>{content}</div>
                 )}
-            </React.Fragment>
+            </>
         );
     }
 

@@ -6,7 +6,7 @@ export default function reducerMap<TState>(
     state: TState,
     map: { [key: string]: (state: TState, payload: any) => TState }
 ): TState {
-    if (action && map.hasOwnProperty(action.type)) {
+    if (action && Object.prototype.hasOwnProperty.call(map, action.type)) {
         return map[action.type](state, action.payload);
     }
 

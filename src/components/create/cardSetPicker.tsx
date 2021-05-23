@@ -47,7 +47,7 @@ export class CardSetPicker extends React.Component<ICardSetPickerProps> {
                 {cardSet.cards.map((c) => (
                     <Card
                         key={c.identifier}
-                        disabled={true}
+                        disabled
                         size={CardSize.small}
                         front={{
                             label: c.identifier

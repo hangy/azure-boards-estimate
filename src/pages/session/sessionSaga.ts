@@ -58,8 +58,7 @@ export function* sessionSaga(action: ReturnType<typeof loadSession>) {
         const sessionService =
             Services.getService<ISessionService>(SessionServiceId);
 
-        let session: ISession | undefined;
-        session = yield call(
+        const session: ISession | undefined = yield call(
             [sessionService, sessionService.getSession],
             action.payload
         );
@@ -165,8 +164,8 @@ export function* sessionSaga(action: ReturnType<typeof loadSession>) {
             })
         );
 
-        const estimationTask = yield fork(sessionEstimationSaga);
-        const notificationTask = yield fork(notificationSaga);
+        const estimationTask: Task = yield fork(sessionEstimationSaga);
+        const notificationTask: Task = yield fork(notificationSaga);
 
         // Wait for leave or end
         const a:

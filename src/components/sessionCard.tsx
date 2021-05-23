@@ -69,7 +69,7 @@ export class SessionCard extends React.Component<ICardProps> {
                         <CardTitle>
                             <Link
                                 href={`/session/${id}/${makeUrlSafe(name)}`}
-                                onClick={this.navigate}
+                                onClick={this.handleSessionLinkClick}
                             >
                                 {name}
                             </Link>
@@ -145,6 +145,10 @@ export class SessionCard extends React.Component<ICardProps> {
             </div>
         );
     }
+
+    private handleSessionLinkClick = (
+        e: React.MouseEvent | React.KeyboardEvent
+    ) => this.navigate(e);
 
     private navigate = (e: React.MouseEvent | React.KeyboardEvent) => {
         const {

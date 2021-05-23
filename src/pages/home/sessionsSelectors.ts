@@ -13,7 +13,7 @@ export function getDisplaySessions(
     sessions: ISession[]
 ): ISessionDisplay[] {
     return sessions.map((session) => {
-        let info: ISessionInfo[] = [];
+        const info: ISessionInfo[] = [];
 
         switch (session.source) {
             case SessionSource.Sprint: {

@@ -104,7 +104,7 @@ export class QueryPicker extends React.Component<
 
         let parent: IQueryTreeItem | null = null;
         for (let i = 0; i < pathSegments.length; ++i) {
-            let parentQueryItem = await client.getQuery(
+            const parentQueryItem = await client.getQuery(
                 project!.id,
                 pathSegments.slice(0, i + 1).join("/"),
                 4,
@@ -135,7 +135,7 @@ export class QueryPicker extends React.Component<
 
         return (
             <Dropdown
-                label={"Select query"}
+                label="Select query"
                 placeHolder={isLoading ? "Loading..." : "Select query"}
                 options={options}
                 onRenderItem={
@@ -254,7 +254,7 @@ export class QueryPicker extends React.Component<
             >
                 {option.hasChildren && (
                     <Button
-                        subtle={true}
+                        subtle
                         iconProps={{
                             iconName: option.isExpanded
                                 ? "ChevronDown"

@@ -163,7 +163,7 @@ class CreatePanel extends React.Component<
             <Panel
                 titleProps={{
                     text: "Create new session",
-                    //@ts-ignore
+                    // @ts-ignore
                     size: TitleSize.Large
                 }}
                 onDismiss={onDismiss}
@@ -181,7 +181,7 @@ class CreatePanel extends React.Component<
                 <div className="create-panel--content">
                     <div className="create-panel--group">
                         <TextField
-                            onChange={this.onChangeName}
+                            onChange={this.handleNameChange}
                             value={name}
                             placeholder="Session title"
                         />
@@ -193,7 +193,7 @@ class CreatePanel extends React.Component<
                         </label>
                         <ChoiceGroup
                             selectedKey={mode.toString()}
-                            onChanged={this.onChangeMode}
+                            onChanged={this.handleModeChange}
                             options={modeOptions}
                         />
                     </div>
@@ -205,7 +205,7 @@ class CreatePanel extends React.Component<
                         <ChoiceGroup
                             disabled={sourceLocked}
                             selectedKey={source.toString()}
-                            onChanged={this.onChangeSource}
+                            onChanged={this.handleSourceChange}
                             options={sourceOptions}
                         />
 
@@ -219,7 +219,7 @@ class CreatePanel extends React.Component<
                         <CardSetPicker
                             cardSets={cardSets}
                             selectedCardSetId={cardSet || ""}
-                            onChange={this.onChangeCardSet}
+                            onChange={this.handleCardSetChange}
                         />
                     </div>
 
@@ -229,7 +229,7 @@ class CreatePanel extends React.Component<
                         </label>
                         <Toggle
                             checked={onlyCreatorCanSwitch}
-                            onChange={this.onSecurityToggle}
+                            onChange={this.handleSecurityToggleChange}
                             text="Only creator can change work items and commit"
                         />
                     </div>
@@ -255,7 +255,7 @@ class CreatePanel extends React.Component<
                     <div>
                         <QueryPicker
                             defaultSelectedQueryId={queryId || undefined}
-                            onChanged={this.onSetQuery}
+                            onChanged={this.handleSetQuery}
                         />
                     </div>
                 );
@@ -286,7 +286,7 @@ class CreatePanel extends React.Component<
                 return (
                     <div>
                         <Dropdown
-                            onChange={this.onSetTeam}
+                            onChange={this.handleTeamChange}
                             label="Team"
                             placeHolder="Select Team"
                             selectedKey={team}
@@ -304,7 +304,7 @@ class CreatePanel extends React.Component<
 
                         <Dropdown
                             label="Sprint"
-                            onChanged={this.onSetIteration}
+                            onChanged={this.handleIterationChange}
                             placeHolder="Select Sprint"
                             selectedKey={iteration}
                             disabled={iterations === null}
@@ -323,21 +323,22 @@ class CreatePanel extends React.Component<
         }
     };
 
-    private onChangeName = (ev: React.ChangeEvent, value: string) => {
+    private handleNameChange = (ev: React.ChangeEvent, value: string) => {
         const { onSetName } = this.props;
         onSetName(value);
     };
 
-    private onChangeMode = (option: IChoiceGroupOption) => {
+    private handleModeChange = (option: IChoiceGroupOption) => {
         const { onSetMode } = this.props;
         onSetMode(parseInt(option.key, 10) as SessionMode);
     };
-    private onChangeSource = (option: IChoiceGroupOption) => {
+
+    private handleSourceChange = (option: IChoiceGroupOption) => {
         const { onSetSource } = this.props;
         onSetSource(parseInt(option.key, 10) as SessionSource);
     };
 
-    private onSetTeam = (
+    private handleTeamChange = (
         _: React.FormEvent<HTMLDivElement>,
         option?: IDropdownOption
     ) => {
@@ -345,22 +346,22 @@ class CreatePanel extends React.Component<
         onSetTeam(option!.key as string);
     };
 
-    private onSetIteration = (option: IDropdownOption) => {
+    private handleIterationChange = (option: IDropdownOption) => {
         const { onSetIteration } = this.props;
         onSetIteration(option.key as string);
     };
 
-    private onSetQuery = (queryId: string) => {
+    private handleSetQuery = (queryId: string) => {
         const { onSetQuery } = this.props;
         onSetQuery(queryId);
     };
 
-    private onChangeCardSet = (cardSet: ICardSet) => {
+    private handleCardSetChange = (cardSet: ICardSet) => {
         const { onSetCardSet } = this.props;
         onSetCardSet(cardSet.id);
     };
 
-    private onSecurityToggle = (_: any, checked: boolean) => {
+    private handleSecurityToggleChange = (_: any, checked: boolean) => {
         const { setLimitedToCreator } = this.props;
         setLimitedToCreator(checked);
     };
