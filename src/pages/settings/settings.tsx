@@ -26,11 +26,11 @@ export interface ISettingsPanelOwnProps {
 interface ISettingsPanelProps {
     workItemTypes: IWorkItemType[];
     fields: null | IField[];
-    baseUrl: string;
+    backendUrl: string;
     loading: boolean;
 }
 
-const Actions = { init, close, setField };
+const Actions = { init, close, setField, setBackendUrl };
 
 class SettingsPanel extends React.Component<
     ISettingsPanelProps & typeof Actions & ISettingsPanelOwnProps
@@ -110,10 +110,10 @@ class SettingsPanel extends React.Component<
             estimationFieldRefName: item.data!.referenceName
         });
     };
-    private onBaseUrlChange = (baseUrl: string) => {
-        this.props.setBackendUrl({
-            baseUrl: baseUrl
-        });
+
+    private handleBackendUrlChange = (ev: React.ChangeEvent, value: string) => {
+        const { setBackendUrl } = this.props;
+        setBackendUrl(value);
     };
 
     public componentDidMount() {
@@ -151,8 +151,8 @@ class SettingsPanel extends React.Component<
                         </p>
 
                         <TextField
-                            value={this.props.baseUrl}
-                            onSelect={this.onBaseUrlChange.bind(this)}
+                            value={this.props.backendUrl}
+                            onChange={this.handleBackendUrlChange}
                         />
                         <Table<IWorkItemType>
                             columns={this.columns}
