@@ -1,3 +1,4 @@
+import { call } from "redux-saga/effects";
 import * as signalR from "@aspnet/signalr";
 import { IEstimate } from "../../model/estimate";
 import { IUserInfo } from "../../model/user";
@@ -62,13 +63,26 @@ export class SignalRChannel implements IChannel {
     async start(projectId: string, sessionId: string): Promise<void> {
         this.sessionId = sessionId;
 
+        const service = Services.getService<ISessionService>(SessionServiceId);
+
+        let configuration: any = call(
+            [service, service.getSettingsValue as any],
+            projectId,
+            BackendConfiguration
+        );
+        if (!configuration) {
+            configuration = {};
+        }
+
+        const backendUrl = configuration.baseUrl ?? fallbackUrl;
+
         const identityService =
             Services.getService<IIdentityService>(IdentityServiceId);
-        const identity = await identityService.getCurrentIdentity();
+        const identity = identityService.getCurrentIdentity();
 
         this.connection = new signalR.HubConnectionBuilder()
             .withUrl(
-                `${baseUrl}/estimate?sessionId=${this.sessionId}&tfId=${identity.id}`
+                `${backendUrl}/estimate?sessionId=${this.sessionId}&tfId=${identity.id}`
             )
             .configureLogging(signalR.LogLevel.Information)
             .build();
