@@ -6,7 +6,7 @@ import { IWorkItemType, IField } from "../../model/workItemType";
 export const initialState = {
     workItemTypes: [] as IWorkItemType[],
     fields: null as IField[] | null,
-    baseUrl: "",
+    backendUrl: "",
     loading: true
 };
 
@@ -22,14 +22,14 @@ const reduce = <TPayload>(
             (state, payload) => {
                 state.workItemTypes = payload.workItemTypes;
                 state.fields = payload.fields;
-                state.baseUrl = payload.baseUrl;
+                state.backendUrl = payload.backendUrl;
                 state.loading = false;
             }
         ),
         [Actions.setBackendUrl.type]: reducerAction(
             Actions.setBackendUrl,
             (state, payload) => {
-                state.baseUrl = payload;
+                state.backendUrl = payload;
             }
         ),
         [Actions.setField.type]: reducerAction(

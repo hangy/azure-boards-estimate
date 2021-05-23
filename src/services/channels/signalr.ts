@@ -74,7 +74,7 @@ export class SignalRChannel implements IChannel {
             configuration = {};
         }
 
-        const backendUrl = configuration.baseUrl ?? fallbackUrl;
+        const backendUrl = configuration.backendUrl ?? fallbackUrl;
 
         const identityService =
             Services.getService<IIdentityService>(IdentityServiceId);
