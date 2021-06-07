@@ -23,7 +23,7 @@
         "react-scripts": "^4.0.3",
         "redux": "^4.1.0",
         "redux-saga": "^0.16.2",
-        "sass": "^1.34.0",
+        "sass": "^1.34.1",
         "typescript": "^4.3.2",
         "typescript-fsa": "^3.0.0"
     },
