@@ -10,10 +10,9 @@ export const loadSessions = factory<void>("load");
 
 export const deleteSession = factory<string>("delete");
 
-export const populate =
-    factory<{
-        sessions: ISession[];
-    }>("populate");
+export const populate = factory<{
+    sessions: ISession[];
+}>("populate");
 
 export const setIterationLookup =
     factory<ILookup<IIteration>>("setIterationLookup");
